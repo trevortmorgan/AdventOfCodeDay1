@@ -13,12 +13,15 @@
             string path = "static/sonarReadings.txt";
             if(File.Exists(path)) {
                 Console.WriteLine("exists!");
+                var sonarReadings = File.ReadAllText(path).Split(new string[] {Environment.NewLine}, StringSplitOptions.None);
+
+                foreach (var sonarReading in sonarReadings.Select((name, index) => (name, index)))
+                {
+                    Console.WriteLine($"{sonarReading.index} - {sonarReading.name}");
+                }
             } else {
                 Console.WriteLine("Doesn't Exist");  
             }
-
-            Console.WriteLine("test");
-
         }
     }
 }
