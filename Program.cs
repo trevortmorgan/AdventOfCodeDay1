@@ -1,4 +1,7 @@
-﻿namespace HelloWorld
+﻿using System.Drawing;
+using Pastel;
+
+namespace HelloWorld
 {
     class Program
     {
@@ -14,13 +17,25 @@
             if(File.Exists(path)) {
                 Console.WriteLine("exists!");
                 var sonarReadings = File.ReadAllText(path).Split(new string[] {Environment.NewLine}, StringSplitOptions.None);
+                var increase = 0;
 
-                foreach (var sonarReading in sonarReadings.Select((name, index) => (name, index)))
+                foreach (var sonarReading in sonarReadings.Select((value, index) => (value, index)))
                 {
-                    Console.WriteLine($"{sonarReading.index} - {sonarReading.name}");
+                    var previousValue = sonarReading.index != 0 ? sonarReadings[sonarReading.index - 1] : null;
+                    int previousReading;
+                    Int32.TryParse(previousValue, out previousReading);
+
+                    int currentReading;
+                    int.TryParse(sonarReading.value, out currentReading);
+
+                    var change = currentReading > previousReading ? "(Increased)".Pastel(Color.Green) : "(Decreased)".Pastel(Color.Red);
+
+                    Console.WriteLine($"{sonarReading.value} - {change}");
+
+
                 }
             } else {
-                Console.WriteLine("Doesn't Exist");  
+                Console.WriteLine("No file found");  
             }
         }
     }
