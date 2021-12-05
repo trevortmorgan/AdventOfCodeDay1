@@ -9,7 +9,6 @@ namespace HelloWorld
         {
             string path = "static/sonarReadings.txt";
             if(File.Exists(path)) {
-                Console.WriteLine("exists!");
                 var sonarReadings = File.ReadAllText(path).Split(new string[] {Environment.NewLine}, StringSplitOptions.None);
                 var increase = 0;
 
