@@ -14,7 +14,7 @@ namespace HelloWorld
 
                 foreach (var sonarReading in sonarReadings.Select((value, index) => (value, index)).Skip(1))
                 {
-                    var previousValue = sonarReading.index != 0 ? sonarReadings[sonarReading.index - 1] : null;
+                    var previousValue = sonarReadings[sonarReading.index - 1];
                     int previousReading;
                     Int32.TryParse(previousValue, out previousReading);
 
